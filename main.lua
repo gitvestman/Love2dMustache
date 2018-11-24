@@ -60,6 +60,7 @@ function love.load()
 
     -- Font
     mainFont = love.graphics.newFont(32)
+    smallFont = love.graphics.newFont(24)
 
     -- Shader
     color_shader = love.graphics.newShader([[
@@ -248,11 +249,15 @@ function love.draw()
     love.graphics.rectangle("fill", 0, 0, 650, 650) 
     love.graphics.setShader()
 
-    love.graphics.setFont(mainFont)
+    love.graphics.setFont(smallFont)
     love.graphics.setColor(0, 0.7, 0, 1)
     love.graphics.print("Score: "..score, 10, 10, 0, 1)
+    if (#HighScores) > 1 then
+        love.graphics.print(HighScores[1][1]..": "..HighScores[1][2], 10, 40, 0, 1)
+    end
     love.graphics.print("Time: "..countdown, 500, 10, 0, 1)
-    love.graphics.print("Level: "..level, 10, 40, 0, 1)
+    love.graphics.print("Level: "..level, 500, 40, 0, 1)
+    love.graphics.setFont(mainFont)
 
     if (hasMustache) then
         love.graphics.setColor(0, 0.5, 0, 1)
@@ -386,7 +391,6 @@ end
 
 function GameOver()
     if gameOver == false and hasMustache == false then
-        print "GameOver"
         gameOver = true
         restarttime = time
     end
@@ -394,7 +398,6 @@ end
 
 function LevelWon()
     if gameOver == false and hasMustache == false then
-        print "LevelWon"
         hasMustache = true
         restarttime = time;
         score = score + countdown;
@@ -418,7 +421,6 @@ function scoresort(object1, object2)
 end
 
 function string.explode(str, div)
-    print("string.explode "..str.." : "..div)
     --assert(type(str) == "string" and type(div) == "string", "invalid arguments")
     local o = {}
     while true do
