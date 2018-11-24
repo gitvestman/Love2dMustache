@@ -447,7 +447,6 @@ function getHighScores()
     for i,v in pairs(lines) do
         tbl = string.explode(v, "|")
         if (tbl[1] ~= nil and tbl[2] ~= nil) then
-            print(tbl[1].." : "..tbl[2])
             HighScores[i] = {tbl[1],tonumber(tbl[2])}
         end
     end
